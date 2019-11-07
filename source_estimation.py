@@ -64,6 +64,11 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         ### MLE of initial time t0
         t0_s = (I.T @ cov_d_s_inv) / (I.T @ cov_d_s_inv @ I)
         ### Auxilary variable to make equation simpler to write
+        print('SHAPES')
+        print('w_s ', w_s.shape)
+        print('t0 ', t0_s.shape)
+        print('... ', (w_s - (t0_s @ I)).shape)
+        print('... ', (w_s - (t0_s @ I)).T.shape)
         z_s = (w_s - (t0_s @ I)).T @ cov_d_s_inv @ (w_s - (t0 @ I))
         ### estimator for the source node
         s_estimator[s] = len(sorted_obs)*np.log(z_s) + np.log(cov_mat)
