@@ -53,7 +53,6 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
     ### Iteration over all nodes per class
 
     for s in nodes:
-        I = np.ones((len(w_s), 1))
         ### BFS tree
         tree_s = bfs_tree(graph, s)
         ### Covariance matrix
@@ -61,6 +60,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         cov_mat_inv = np.linalg.inv(cov_mat)
         ### vector -> difference between observation time and mean arrival time for observers
         w_s = w_vector(cov_mat_inv, mu, path_lengths, s)
+        I = np.ones((len(w_s), 1))
         ### MLE of initial time t0
         t0_s = (I.T @ cov_mat_inv) / (I.T @ cov_mat_inv @ I)
         ### Auxilary variable to make equation simpler to write
