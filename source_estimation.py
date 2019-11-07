@@ -72,7 +72,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         print('... ', (t0_s*I).shape)
         z_s = (w_s - (t0_s*I)).T @ cov_d_s_inv @ (w_s - (t0_s*I))
         ### estimator for the source node
-        s_estimator[s] = len(sorted_obs)*np.log(z_s) + np.log(cov_mat)
+        s_estimator[s] = len(sorted_obs)*np.log(z_s) + np.log(cov_d_s)
 
 
     ### Find the nodes where the source estimator is the lowest
