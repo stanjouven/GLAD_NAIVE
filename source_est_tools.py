@@ -65,13 +65,13 @@ def cov_mat(tree, graph, paths, obs):
     for row in range(0, k):
         for col in range(0, k):
             if row == col:
-                cov[row, col] = len(bfs_tree_paths[obs[col+1]])-1
+                cov[row, col] = len(bfs_tree_paths[obs[col]])
             else:
-                path_row = bfs_tree_paths[obs[row+1]]
-                path_col = bfs_tree_paths[obs[col+1]]
+                path_row = bfs_tree_paths[obs[row]]
+                path_col = bfs_tree_paths[obs[col]]
                 common_nodes = list(filter(lambda x: x in path_col, path_row)) # does it respect some order
                 #p = nx.shortest_path(tree, common_nodes[0],common_nodes[-1]) # how to ensure that the path includes all common nodes ?
-                cov[row, col] = len(common_nodes)-1
+                cov[row, col] = len(common_nodes)
     return cov
 
 
