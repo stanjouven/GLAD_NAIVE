@@ -78,10 +78,10 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
     ### Find the nodes where the source estimator is the lowest
 
 
-    max_lkl = np.min(s_estimator.values())
+    optimal_source = np.min(s_estimator.values())
     source_candidates = list()
     ### Finds nodes with maximum likelihood
-    for src, value in posterior.items():
+    for src, value in optimal_source.items():
         if np.isclose(value, max_lkl, atol= 1e-08):
             source_candidates.append(src)
 
