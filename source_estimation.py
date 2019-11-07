@@ -80,9 +80,9 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
 
     optimal_source = np.min(s_estimator.values())
     source_candidates = list()
-    ### Finds nodes with maximum likelihood
-    for src, value in optimal_source.items():
-        if np.isclose(value, max_lkl, atol= 1e-08):
+    ### Finds nodes where the source is optimal
+    for src, value in s_estimator.items():
+        if np.isclose(value, optimal_source, atol= 1e-08):
             source_candidates.append(src)
 
     return source_candidates, s_estimator
