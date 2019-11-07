@@ -57,14 +57,14 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         tree_s = nx.bfs_tree(graph, s)
         ### Covariance matrix
         cov_d_s = tl.cov_mat(tree_s, graph, paths, sorted_obs)
-        cov_mat_inv = np.linalg.inv(cov_mat)
+        cov_d_s_inv = np.linalg.inv(cov_d_s)
         ### vector -> difference between observation time and mean arrival time for observers
-        w_s = w_vector(cov_mat_inv, mu, path_lengths, s)
+        w_s = w_vector(sorted_obs_time, mu, path_lengths, s)
         I = np.ones((len(w_s), 1))
         ### MLE of initial time t0
-        t0_s = (I.T @ cov_mat_inv) / (I.T @ cov_mat_inv @ I)
+        t0_s = (I.T @ cov_d_s_inv) / (I.T @ cov_d_s_inv @ I)
         ### Auxilary variable to make equation simpler to write
-        z_s = (w_s - (t0_s @ I)).T @ cov_mat_inv @ (w_s - (t0 @ I))
+        z_s = (w_s - (t0_s @ I)).T @ cov_d_s_inv @ (w_s - (t0 @ I))
         ### estimator for the source node
         s_estimator[s] = len(sorted_obs)*np.log(z_s) + np.log(cov_mat)
 
