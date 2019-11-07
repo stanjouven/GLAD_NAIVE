@@ -70,7 +70,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         print('... ', (w_s - (t0_s*I)).shape)
         print('... ', (w_s - (t0_s*I)).T.shape)
         print('... ', (t0_s*I).shape)
-        z_s = (w_s - (t0_s*I)).T @ cov_d_s_inv @ (w_s - (t0*I))
+        z_s = (w_s - (t0_s*I)).T @ cov_d_s_inv @ (w_s - (t0_s*I))
         ### estimator for the source node
         s_estimator[s] = len(sorted_obs)*np.log(z_s) + np.log(cov_mat)
 
