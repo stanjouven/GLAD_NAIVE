@@ -54,7 +54,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
 
     for s in nodes:
         ### BFS tree
-        tree_s = bfs_tree(graph, s)
+        tree_s = nx.bfs_tree(graph, s)
         ### Covariance matrix
         cov_d_s = tl.cov_mat(tree_s, graph, paths, sorted_obs)
         cov_mat_inv = np.linalg.inv(cov_mat)
