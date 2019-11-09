@@ -70,6 +70,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         I = np.ones((len(w_s), 1))
         ### MLE of initial time t0
         t0_s = (I.T @ cov_d_s_inv @ w_s) / (I.T @ cov_d_s_inv @ I)
+        print('t0_s ', t0_s)
         ### Auxilary variable to make equation simpler to write
         print('SHAPES')
         print('w_s ', w_s.shape)
@@ -78,6 +79,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         print('... ', (w_s - (t0_s*I)).T.shape)
         print('... ', (t0_s*I).shape)
         z_s = (w_s - (t0_s*I)).T @ cov_d_s_inv @ (w_s - (t0_s*I))
+        print('z_s ', z_s)
         ### estimator for the source node
         print('s_estimator ', len(sorted_obs)*np.log(z_s) + np.log(cov_d_s))
         s_estimator[s] = len(sorted_obs)*np.log(z_s) + np.log(cov_d_s)
