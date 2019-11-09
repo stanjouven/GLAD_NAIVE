@@ -78,7 +78,7 @@ def cov_mat(tree, graph, paths, obs, s):
 
 
 
-def w_vector(sorted_obs_time, mu, paths, s):
+def w_vector(sorted_obs_time, mu, paths, s, tree):
     w_s = list()
     for obs in sorted_obs_time:
         if not(verif_existant_path(list(tree.edges), paths[o][s])) :
