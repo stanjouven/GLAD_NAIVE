@@ -68,6 +68,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         ### vector -> difference between observation time and mean arrival time for observers
         w_s = tl.w_vector(sorted_obs_time, mu, paths, s, tree_s)
         I = np.ones((len(w_s), 1))
+        print('I ', I.shape)
         ### MLE of initial time t0
         t0_s = ((I.T @ cov_d_s_inv @ w_s) / (I.T @ cov_d_s_inv @ I))[0][0]
         print('t0_s ', t0_s)
@@ -78,6 +79,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         print('... ', (w_s - (t0_s*I)).shape)
         print('... ', (w_s - (t0_s*I)).T.shape)
         print('... ', (t0_s*I).shape)
+        print('I ', I.shape)
         z_s = ((w_s - (t0_s*I)).T) @ cov_d_s_inv @ (w_s - (t0_s*I))
         print('z_s ', z_s)
         ### estimator for the source node
