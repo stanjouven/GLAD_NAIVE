@@ -89,7 +89,8 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
 
     ### Find the nodes where the source estimator is the lowest
 
-
+    print('s_estimate')
+    print(s_estimator)
     optimal_source = np.min(s_estimator.values())
     source_candidates = list()
     ### Finds nodes where the source is optimal
