@@ -37,7 +37,7 @@ def verif_existant_path(edges, path):
     return all(any(p1==p2 for p1 in edges) for p2 in path_edges)
 
 
-def cov_mat(tree, graph, paths, obs):
+def cov_mat(tree, graph, paths, obs, s):
     """Compute the covariance matrix of the observed delays.
 
     obs is the ordered set of observers.
@@ -54,11 +54,15 @@ def cov_mat(tree, graph, paths, obs):
     #paths are unique
     bfs_tree_paths = {}
     undirected_tree = tree.to_undirected()
+    '''
     for o in obs:
         if not(verif_existant_path(list(tree.edges), paths[obs[0]][o])) :
             bfs_tree_paths[o] = nx.shortest_path(undirected_tree, obs[0], o)
         else:
             bfs_tree_paths[o] = paths[obs[0]][o]
+    '''
+    for o in obs:
+        bfs_tree_paths[o] = nx.shortest_path(undirected_tree, s, o)
 
     k = len(obs)
     cov = np.empty([k, k])

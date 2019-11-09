@@ -14,12 +14,6 @@ def glad_naive(graph, obs_time, distribution) :
     sigma = distribution.std()
     obs = np.array(list(obs_time.keys()))
 
-    #print('mu ', mu)
-    #print('sigma ', sigma)
-    #print('obs ', obs)
-
-    for (u, v) in graph.edges():
-            print(graph[u][v]['weight'])
 
     path_lengths = {}
     paths = {}
