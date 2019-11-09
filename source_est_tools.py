@@ -76,10 +76,10 @@ def cov_mat(tree, graph, paths, obs):
 
 
 
-def w_vector(sorted_obs_time, mu, path_lengths, s):
+def w_vector(sorted_obs_time, mu, paths, s):
     w_s = list()
     for obs in sorted_obs_time:
-        w_s.append(obs[1] - (mu * path_lengths[obs[0]][s]))
+        w_s.append(obs[1] - (mu * len(paths[obs[0]][s])))
     return np.array(w_s)
 
 
