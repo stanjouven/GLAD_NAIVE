@@ -70,7 +70,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         I = np.ones((len(w_s)))
         print('I ', I.shape)
         ### MLE of initial time t0
-        t0_s = ((I.T @ cov_d_s_inv @ w_s) / (I.T @ cov_d_s_inv @ I))[0][0]
+        t0_s = ((I.T @ cov_d_s_inv @ w_s) / (I.T @ cov_d_s_inv @ I))
         print('t0_s ', t0_s)
         ### Auxilary variable to make equation simpler to write
         print('SHAPES')
