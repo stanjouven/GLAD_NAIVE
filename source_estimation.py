@@ -92,6 +92,7 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
     print('s_estimate')
     print(s_estimator)
     optimal_source = np.min(s_estimator.values())
+    print('opt ', optimal_source)
     source_candidates = list()
     ### Finds nodes where the source is optimal
     for src, value in s_estimator.items():
