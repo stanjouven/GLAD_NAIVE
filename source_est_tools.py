@@ -54,15 +54,13 @@ def cov_mat(tree, graph, paths, obs, s):
     #paths are unique
     bfs_tree_paths = {}
     undirected_tree = tree.to_undirected()
-    '''
+
     for o in obs:
-        if not(verif_existant_path(list(tree.edges), paths[obs[0]][o])) :
-            bfs_tree_paths[o] = nx.shortest_path(undirected_tree, obs[0], o)
+        if not(verif_existant_path(list(tree.edges), paths[o][s])) :
+            bfs_tree_paths[o] = nx.shortest_path(undirected_tree, o, s)
         else:
-            bfs_tree_paths[o] = paths[obs[0]][o]
-    '''
-    for o in obs:
-        bfs_tree_paths[o] = nx.shortest_path(undirected_tree, s, o)
+            bfs_tree_paths[o] = paths[o][s]
+
 
     k = len(obs)
     cov = np.empty([k, k])
@@ -73,13 +71,9 @@ def cov_mat(tree, graph, paths, obs, s):
             else:
                 path_row = bfs_tree_paths[obs[row]]
                 path_col = bfs_tree_paths[obs[col]]
-                print('common nodes')
-                print(path_row)
-                print(path_col)
 
                 common_nodes = list(filter(lambda x: x in path_col, path_row)) # does it respect some order
                 cov[row, col] = len(common_nodes)
-                print(cov[row, col])
     return cov
 
 
