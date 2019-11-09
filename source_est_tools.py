@@ -66,7 +66,7 @@ def cov_mat(tree, graph, paths, obs, s):
         print('with shortest path')
         print(bfs_tree_paths[o])
         print('with path')
-        print(paths[s][o])
+        print(paths[o][s])
 
     k = len(obs)
     cov = np.empty([k, k])
