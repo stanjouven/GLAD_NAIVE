@@ -85,11 +85,7 @@ def cov_mat(tree, graph, paths, obs, s):
 
 def w_vector(sorted_obs_time, mu, paths, s, tree):
     w_s = list()
-    undirected_tree = tree.to_undirected()
     for obs in sorted_obs_time:
-        if not(verif_existant_path(list(tree.edges), paths[obs[0]][s])) :
-            paths[obs[0]] = nx.shortest_path(undirected_tree, obs[0])
-        print('obs time ', obs[1])
         w_s.append(obs[1] - (mu * len(paths[obs[0]][s])))
     return np.array(w_s)
 
