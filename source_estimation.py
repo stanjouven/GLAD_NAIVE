@@ -58,6 +58,8 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
         tree_s = likelihood_tree(paths, s, sorted_obs)
         ### Covariance matrix
         cov_d_s = tl.cov_mat(tree_s, graph, paths, sorted_obs, s)
+        print('covariance')
+        print(cov_d_s)
         cov_d_s_inv = np.linalg.inv(cov_d_s)
         ### vector -> difference between observation time and mean arrival time for observers
         w_s = tl.w_vector(sorted_obs_time, mu, paths, s)
