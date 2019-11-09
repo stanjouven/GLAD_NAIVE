@@ -43,11 +43,6 @@ def cov_mat(tree, graph, paths, obs, s):
     obs is the ordered set of observers.
 
     """
-    print('S ', s)
-    for node in list(tree.nodes()):
-        print(paths[obs[0]][node])
-
-
     if not nx.is_tree(tree):
         #if it is not a tree, the paths are not unique...
         raise ValueError("This function expects a tree!")
