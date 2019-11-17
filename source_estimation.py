@@ -43,47 +43,28 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
     nodes = np.array(list(graph.nodes))
     s_estimator = {}
 
-    ### Print variables to be given to output to communicate intermediate results
-    d_mu = collections.defaultdict(list)
-    covariance = collections.defaultdict(list)
+    # candidate nodes does not contain observers nodes by assumption
+    candidate_nodes = np.array(np.list(set(np.arange(nodes)) - set(sorted_obs)))
 
-    ### Computes classes of nodes with same position with respect to all observers
-    classes = tl.classes(path_lengths, sorted_obs)
-
-    ### Iteration over all nodes per class
-
-    for s in nodes:
+    for s in candidate_nodes:
         ### BFS tree
-        #tree_s = nx.bfs_tree(graph, s)
         tree_s = likelihood_tree(paths, s, sorted_obs)
-        #for (u, v) in tree_s.edges():
-        #    print('(u, v) = ', u, ' ', v)
-        #for o in sorted_obs:
-        #    print('obs ', o)
         ### Covariance matrix
         cov_d_s = tl.cov_mat(tree_s, graph, paths, sorted_obs, s)
-        #print('covariance')
-        #print(cov_d_s)
+
         cov_d_s_inv = np.linalg.inv(cov_d_s)
+
         ### vector -> difference between observation time and mean arrival time for observers
         w_s = tl.w_vector(sorted_obs_time, mu, paths, s, tree_s)
         I = np.ones((len(w_s)))
-        #print('I ', I.shape)
+
         ### MLE of initial time t0
         t0_s = ((I.T @ cov_d_s_inv @ w_s) / (I.T @ cov_d_s_inv @ I))
-        #print('t0_s ', t0_s)
+
         ### Auxilary variable to make equation simpler to write
-        #print('SHAPES')
-        #print('w_s ', w_s.shape)
-        #print('t0 ', t0_s.shape)
-        #print('... ', (w_s - (t0_s*I)).shape)
-        #print('... ', (w_s - (t0_s*I)).T.shape)
-        #print('... ', (t0_s*I).shape)
-        #print('I ', I.shape)
         z_s = ((w_s - (t0_s*I)).T) @ cov_d_s_inv @ (w_s - (t0_s*I))
-        #print('z_s ', z_s)
+
         ### estimator for the source node
-        #print('s_estimator ', len(sorted_obs)*np.log(z_s) + np.log(np.linalg.det(cov_d_s)))
         s_estimator[s] = len(sorted_obs)*np.log(z_s) + np.log(np.linalg.det(cov_d_s))
 
 
