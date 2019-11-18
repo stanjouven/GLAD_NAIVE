@@ -70,13 +70,12 @@ def ml_estimate(graph, obs_time, sigma, mu, paths, path_lengths,
 
     ### Find the nodes where the source estimator is the lowest
     ### Corrects a bias
-    #posterior = posterior_from_logLH(s_estimator)
-    #print('s_estimate')
-    #print(s_estimator)
     optimal_source = min(s_estimator.values())
-    #print('opt ', optimal_source)
     source_candidates = list()
-    source_candidates.append(optimal_source)
+    ### Finds nodes where the source is optimal
+    for src, value in s_estimator.items():
+        if value == optimal_source:
+            source_candidates.append(src)
 
     return source_candidates, s_estimator
 
