@@ -109,6 +109,7 @@ def logLH_source_tree(mu_s, cov_d, obs, obs_time):
     ### Computes the log of the gaussian probability of the observed time being possible
     exponent =  - (1/2 * (obs_d - mu_s).T.dot(np.linalg.inv(cov_d)).dot(obs_d -
             mu_s))
+    print(np.linalg.det(cov_d), flush = True)
     denom = math.sqrt(((2*math.pi)**(len(obs_d)-1))*np.linalg.det(cov_d))
 
     return (exponent - np.log(denom))[0,0], obs_d - mu_s
